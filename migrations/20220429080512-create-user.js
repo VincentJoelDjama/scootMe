@@ -58,10 +58,6 @@ module.exports = {
         defaultValue: "./uploads/profile/random-user.png"
       },
 
-      isAdmin: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
   
       createdAt: {
         allowNull: false,
@@ -69,6 +65,10 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      deletedAt: {
+        
         type: Sequelize.DATE
       }
     });

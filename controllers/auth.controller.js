@@ -71,7 +71,7 @@ module.exports.signUp = (req, res) => {
                 password: bcryptedPassword,
                 mobile,
                 address,
-                isAdmin: 0,
+              
                 picture 
               })
               .then((newUser) => {

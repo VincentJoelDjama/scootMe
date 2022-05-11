@@ -22,7 +22,7 @@ router.get('/logout', authController.logout);
 router.get("/:id", checkUser,  userController.getUserProfile);
 router.get("/", checkUser, userController.getAllUsers);
 router.put("/edit/:id", checkUser, upload.single("avatar"), userController.editProfile);
-
+router.delete("/delete/:id", checkUser,  userController.deleteUser);
 // upload router
 
 //router.post("/upload", upload.single("file"), uploadController.uploadProfil);

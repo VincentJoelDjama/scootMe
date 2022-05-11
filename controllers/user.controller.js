@@ -136,3 +136,29 @@ module.exports.editProfile = (req, res) => {
       error: "unable to verify user"
     }));
 };
+
+
+module.exports.deleteUser = (req, res) => {
+  const userId = req.params.id;
+  models.User.findOne({
+      where: {
+        id: userId
+      }
+    })
+    .then((user) => {
+      if (!user) return res.status(404).json('user not found');
+ 
+  console.log(user);
+  models.User.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => {
+      res.status(200).json("deleted successfully!")
+    })
+
+    .catch(error => res.status(500).json({error: 'delete failed'}))
+  })
+  .catch((error => res.status(500).json({error: 'An error occured'})))
+}
