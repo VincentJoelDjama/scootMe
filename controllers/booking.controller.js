@@ -60,7 +60,7 @@ module.exports.newBooking = async (req, res) => {
                        }); */
 
 
-
+//get all bookink who exist
 
 module.exports.getAllBookings = (req, res) => {
     const options = {

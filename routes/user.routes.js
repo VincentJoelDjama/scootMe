@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
- //define a routes manager from express frameword
+ //define a routes manager from express framework
 const upload = require('../middlewares/upload.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');
 const checkUser = authMiddleware.checkUser;

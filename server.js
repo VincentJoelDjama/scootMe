@@ -2,9 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 require('dotenv').config({path: './config/.env'});
-
+//require("./route/user.route.js")(app);
 const {checkUser, requireAuth } = require('./middlewares/auth.middleware');
 const cors = require('cors');
+
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 
-// jwt
+// jwt=jeton web token
 
 app.get('/jwtid', checkUser, requireAuth, (req, res) => {
   res.status(200).json(res.locals.user.id)
@@ -33,14 +34,21 @@ app.get('/jwtid', checkUser, requireAuth, (req, res) => {
 // routes
 const userRoutes = require('./routes/user.routes');
 const bookingRoutes = require('./routes/booking.routes');
+const invoiceRoutes = require('./routes/invoice.routes')
 
+ //declaration des routes que l'on utilisera
 app.use('/api/user', userRoutes);
 app.use('/api/booking', bookingRoutes);
+app.use('/api/invoice', invoiceRoutes);
 
 
 //app.use('/api/post', postRoutes);
 
 // server
+
+
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
+  
 })
+

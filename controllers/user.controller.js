@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const models = require("../models");
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const Sequelize = require('sequelize');
 /* const fs = require('fs')
@@ -74,7 +74,7 @@ module.exports.editProfile = (req, res) => {
     return res.status(400).json({
       error: "wrong token"
     });
-  const {
+  const body = {
     firstname,
     lastname,
     email,
@@ -82,7 +82,9 @@ module.exports.editProfile = (req, res) => {
     mobile,
     address,
   } = req.body;
+ 
   const picture = req.file ? req.file.filename : undefined;
+
 
 
   models.User.findOne({
@@ -92,19 +94,27 @@ module.exports.editProfile = (req, res) => {
     })
     .then((user) => {
       let tmp = user.picture;
-      bcrypt
-        .hash(password, 10)
-        .then((bcryptedPassword) => {
+   //console.log('bonjour');
+    if(password){
+       bcrypt
+       .hash(password,10)
+       .then((bcryptedPassword) => {
+       const newUser = {
+         firstname, lastname, email, mobile, picture, address, password:bcryptedpassword
+       }
+     })
+     .catch(error)
+    }
+     else{
+      console.log(newUser);
+      const newUser = {
+        firstname, lastname, email, mobile, picture, address
+      }
+     }       
           user
             .update({
-              firstname,
-              lastname,
-              email,
-              address,
-              mobile,
-              picture,
-              password: bcryptedPassword
-            })
+             newUser
+    })
             .then((user) => {
               if (user) {
 
@@ -121,11 +131,7 @@ module.exports.editProfile = (req, res) => {
                 error: "cannot update user"
               });
             });
-        })
-        .catch((error) => res.status(500).json({
-          error
-        }));
-    })
+        })   
     .catch(() => res.status(500).json({
       error: "unable to verify user"
     }));

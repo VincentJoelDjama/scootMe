@@ -30,7 +30,7 @@ module.exports.signUp = (req, res) => {
 
   const picture = req.file? req.file.filename : req.body.picture;
   
-console.log(req.file);
+//console.log(req.file);
 //console.log(...JSON.parse(req.body.user));
 
   if (email == null || password == null) {
@@ -52,14 +52,14 @@ console.log(req.file);
       error: "invalid password !"
     });
   }
-
+//console.log('bonjour');
   models.User.findOne({
       where: {
         email
       }
     })
     .then((user) => {
-      
+      console.log('bonjour');
       if (!user) {
         bcrypt
           .hash(password, 10)
@@ -77,10 +77,10 @@ console.log(req.file);
               .then((newUser) => {
                 res.status(201).json(newUser);
               })
-              .catch((e) => res.status(500).json(e));
+              .catch((error) => res.status(500).json(error));
           })
           .catch((error) => res.status(500).json({
-            error
+            error:"password"
           }));
       } else return res.status(400).json({
         error: "Email already exists !"
