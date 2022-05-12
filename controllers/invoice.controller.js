@@ -1,7 +1,8 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
+
 const models = require("../models");
-const { options } = require("../routes/invoice.routes");
+
+
+
 module.exports.createInvoice = (req, res) => {
 //create invoice
 const bookingId = req.body.bookingId;
